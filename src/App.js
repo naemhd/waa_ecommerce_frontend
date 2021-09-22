@@ -1,25 +1,81 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
+import Authenticate from "./pages/Authenticate/Authenticate";
+import Home from "./pages/Home/Home";
+import { loadUserData, removeUserData } from "./shared/localStorage";
 
 function App() {
+  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
+  console.log("isLoggedIn", isLoggedIn);
+  useEffect(() => {
+    if (loadUserData()) {
+      const data = loadUserData();
+      setLoggedIn(true);
+      setCurrentUser(data);
+    }
+  }, []);
+
+  const onSignOut = () => {
+    removeUserData();
+    setLoggedIn(false);
+    setCurrentUser({});
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <Switch>
+        <PrivateRoute
+          exact
+          path="/"
+          condition={isLoggedIn}
+          redirectRoute="/auth"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Home signOutHandler={onSignOut} currentUser={currentUser} />
+        </PrivateRoute>
+        <PrivateRoute
+          exact
+          path="/auth"
+          condition={!isLoggedIn}
+          redirectRoute="/"
+        >
+          <Authenticate
+            setLoggedIn={setLoggedIn}
+            setCurrentUser={setCurrentUser}
+          />
+        </PrivateRoute>
+        <Route>
+          <Home />
+        </Route>
+        {/* <Redirect */}
+      </Switch>
+    </Router>
   );
 }
+
+const PrivateRoute = ({ children, condition, redirectRoute, ...props }) => {
+  return (
+    <Route
+      {...props}
+      render={({ location }) =>
+        condition ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: redirectRoute,
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
 
 export default App;
