@@ -6,13 +6,14 @@ import {
   Switch,
 } from "react-router-dom";
 import Authenticate from "./pages/Authenticate/Authenticate";
-import Home from "./pages/Home/Home";
+import Header from "./components/Header";
+import Products from "./pages/Products/Products";
+import Cart from "./pages/Cart/Cart";
 import { loadUserData, removeUserData } from "./shared/localStorage";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
-  console.log("isLoggedIn", isLoggedIn);
   useEffect(() => {
     if (loadUserData()) {
       const data = loadUserData();
@@ -29,14 +30,21 @@ function App() {
 
   return (
     <Router>
+      <Header signOutHandler={onSignOut} />
       <Switch>
         <PrivateRoute
-          exact
-          path="/"
+          path="/products"
           condition={isLoggedIn}
           redirectRoute="/auth"
         >
-          <Home signOutHandler={onSignOut} currentUser={currentUser} />
+          <Products currentUser={currentUser} />
+        </PrivateRoute>
+        <PrivateRoute
+          path="/cart"
+          condition={isLoggedIn}
+          redirectRoute="/auth"
+        >
+          <Cart currentUser={currentUser} />
         </PrivateRoute>
         <PrivateRoute
           exact
@@ -49,7 +57,7 @@ function App() {
             setCurrentUser={setCurrentUser}
           />
         </PrivateRoute>
-        {/* <Redirect */}
+        <Redirect to="/products" />
       </Switch>
     </Router>
   );

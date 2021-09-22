@@ -1,27 +1,30 @@
 import React from "react";
-import { useHistory } from "react-router";
-import { removeUserData } from "../shared/localStorage";
+import { Link } from "react-router-dom";
 
 const Header = ({ signOutHandler }) => {
-    return( 
-        <header class="p-3 bg-dark text-white">
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <ul class="nav col-10 mb-2 mb-md-0">
-                        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+    return (
+        <header className="p-3 bg-dark text-white">
+            <div className="container">
+                <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <ul className="nav col-10 mb-2 mb-md-0">
+                        <li>
+                            <Link to="/products" className="nav-link px-2 text-secondary">Products</Link>
+                        </li>
+                        <li>
+                            <Link to="/cart" className="nav-link px-2 text-white">Cart</Link>
+                        </li>
+                        <li>
+                            <Link to="/orders" className="nav-link px-2 text-white">Orders</Link>
+                        </li>
                     </ul>
 
-                    <div class="text-end">
-                        <button type="button" class="btn btn-outline-light me-2" onClick={signOutHandler}>Login</button>
+                    <div className="text-end">
+                        <button type="button" className="btn btn-outline-light me-2" onClick={signOutHandler}>Sign out</button>
                     </div>
                 </div>
             </div>
         </header>
-        );
+    );
 
 };
 
