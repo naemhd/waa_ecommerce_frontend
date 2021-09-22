@@ -7,7 +7,7 @@ import Login from "../../components/Login/Login";
 
 const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
     const [serverError, setServerError] = useState("");
-    const onLogin = ({ username, password }) => {
+    const onLogin = (username, password ) => {
         login(username, password)
             .then((data) => {
                 saveUserData(data.token);

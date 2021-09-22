@@ -9,9 +9,8 @@ const Login = ({ onLogin }) => {
     const form = formData.current;
     const username = form["user"].value;
     const password = form["password"].value;
+    console.log(username + "  "+  password);
     onLogin(username, password);
-
-    //props.history.push("/user");
   };
 
   return (
