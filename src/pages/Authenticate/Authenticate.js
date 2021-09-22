@@ -3,6 +3,7 @@ import { decodeToken } from "react-jwt";
 
 import { saveUserData } from "../../shared/localStorage";
 import { login, register } from "../../shared/api-calls/authAPI";
+import Login from "../../components/Login/Login";
 
 const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
     const [serverError, setServerError] = useState("");
@@ -28,7 +29,13 @@ const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
             .catch((err) => setServerError(err));
     };
     return (
-        <div>html login and register</div>
+        <div>
+            <h1>html login and register</h1>
+
+            <Login onLogin={onLogin} />
+
+        </div>
+
     );
 };
 
