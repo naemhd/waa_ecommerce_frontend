@@ -2,8 +2,9 @@ const { default: axios } = require("axios");
 const { BACKEND_SERVER } = require("../globals");
 
 module.exports.login = function (username, password) {
+  console.log(username + "+++++" + password) ;
   return axios
-    .post(`${BACKEND_SERVER}/api/login`, {
+    .post(`${BACKEND_SERVER}/authenticate`, {
       username: username,
       password: password,
     })
