@@ -49,9 +49,6 @@ function App() {
             setCurrentUser={setCurrentUser}
           />
         </PrivateRoute>
-        <Route>
-          <Home />
-        </Route>
         {/* <Redirect */}
       </Switch>
     </Router>
