@@ -1,4 +1,4 @@
-export const BACKEND_SERVER = "http://137.184.21.16:8080";
+export const BACKEND_SERVER = "http://137.184.21.16";
 
 export const ADMIN_ROLE = "Admin";
 

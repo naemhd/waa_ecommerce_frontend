@@ -4,46 +4,10 @@ import { getAllProducts } from "../../shared/api-calls/productsAPI";
 import "./Products.css"
 
 const Products = (props) => {
-    const [products, setProducts] = useState([
-        {
-            id: 1,
-            title: "Pepsi",
-            price: 2.5,
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-        }, {
-            id: 2,
-            title: "CocaCola",
-            price: 9.5,
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-        },
-        {
-            id: 3,
-            title: "Mountain Dew",
-            price: 0.5,
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-        },
-        {
-            id: 4,
-            title: "Mello Yello",
-            price: 1,
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-        },
-        {
-            id: 5,
-            title: "Diet Coke",
-            price: 7.5,
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-        },
-        {
-            id: 6,
-            title: "Pepsi Diet",
-            price: 4.5,
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-        }
-    ]);
+    const [products, setProducts] = useState([]);
     useEffect(() => {
-        getAllProducts().then((res) => {
-            setProducts(res.data);
+        getAllProducts().then((data) => {
+            setProducts(data);
         }).catch(e => console.log(e))
     }, []);
     return (

@@ -10,17 +10,23 @@ import Header from "./components/Header";
 import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
+import Orders from "./pages/Orders/Orders";
 import { loadUserData, removeUserData } from "./shared/localStorage";
 
 import "./App.css"
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import axios from "axios";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
+
+
   useEffect(() => {
     if (loadUserData()) {
       const data = loadUserData();
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.jwt;
       setLoggedIn(true);
       setCurrentUser(data);
     }
@@ -34,7 +40,7 @@ function App() {
 
   return (
     <Router>
-      <Header signOutHandler={onSignOut} />
+      {isLoggedIn ? <Header signOutHandler={onSignOut} /> : null}
       <div className="all-container">
         <Switch>
           <PrivateRoute
@@ -64,6 +70,13 @@ function App() {
             redirectRoute="/auth"
           >
             <Admin currentUser={currentUser} />
+          </PrivateRoute>
+          <PrivateRoute
+            path="/orders"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <Orders currentUser={currentUser} />
           </PrivateRoute>
           <PrivateRoute
             exact
