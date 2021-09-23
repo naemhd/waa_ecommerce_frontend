@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getAllProducts } from "../../shared/api-calls/productsAPI";
 import "./Products.css"
 
-const Products = (props) => {
+const Products = ({ cartAddingHandler }) => {
     const [products, setProducts] = useState([]);
+    const history = useHistory();
     useEffect(() => {
         getAllProducts().then((data) => {
             setProducts(data);
         }).catch(e => console.log(e))
     }, []);
+
     return (
         <div className="products-container card-deck">
             {products.map((p, index) => {
@@ -19,10 +21,10 @@ const Products = (props) => {
                             <h5 className="card-title">{p.title}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">{p.price}</h6>
                             <p className="card-text">{p.description}</p>
-                            <a href="/" className="card-link">Add to cart</a>
+                            <button onClick={() => cartAddingHandler(p, history)} className="btn btn-link">Add to cart</button>
                             <Link
                                 to={`/product-details/${p.id}`}
-                                className="card-link">
+                                className="btn btn-link">
                                 Details
                             </Link>
                         </div>
