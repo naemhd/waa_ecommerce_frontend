@@ -3,6 +3,8 @@ const { BACKEND_SERVER } = require("../globals");
 
 module.exports.login = function (username, password) {
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
+  axios.defaults.headers.common['Content-Type'] = "application/json";
+  axios.defaults.headers.common['Accept'] = "application/json";
   return axios
     .post(`${BACKEND_SERVER}/authenticate`, {
       username: username,
@@ -12,6 +14,8 @@ module.exports.login = function (username, password) {
 
 module.exports.register = function (userObj) {
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
+  axios.defaults.headers.common['Content-Type'] = "application/json";
+  axios.defaults.headers.common['Accept'] = "application/json";
   return axios
     .post(`${BACKEND_SERVER}/users`, userObj)
     .then((res) => res.data)
