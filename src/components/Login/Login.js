@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import "./Login.css";
 
-const Login = ({ onLogin , btn}) => {
+const Login = ({ onLogin, SwitchUserStatus }) => {
   const formData = useRef();
 
   const loginHandler = (e) => {
@@ -27,7 +26,9 @@ const Login = ({ onLogin , btn}) => {
             <input type="password" id="password" />
           </div>
           <button type="submit">Login</button>
-          <a onClick={btn}>Register</a>
+          <label className="ancor" onClick={SwitchUserStatus}>
+            Register
+          </label>
         </form>
       </section>
     </main>
