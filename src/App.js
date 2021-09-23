@@ -48,8 +48,9 @@ function App() {
   };
 
   const cartAddingHandler = (product) => {
-    addProductIntoCart(product.id);
-    setCartProducts([...cartProducts, product]);
+    addProductIntoCart(product.id).then(res => {
+      setCartProducts([...cartProducts, product]);
+    }).catch(e => console.log(e));
   }
 
   const createProduct = (product, history) => {
@@ -78,6 +79,7 @@ function App() {
             <Home
               isAdmin={isAdmin}
               cartAddingHandler={cartAddingHandler}
+              cartProducts={cartProducts}
               currentUser={currentUser}
               products={products}
               setProducts={setProducts}
@@ -103,7 +105,7 @@ function App() {
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <ProductDetails cartAddingHandler={cartAddingHandler} />
+            <ProductDetails cartAddingHandler={cartAddingHandler} cartProducts={cartProducts} />
           </PrivateRoute>
           <PrivateRoute
             path="/orders"
