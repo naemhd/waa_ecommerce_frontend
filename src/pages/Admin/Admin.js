@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
 import Users from '../../components/Users/Users';
 import Reviews from '../../components/Reviews/Reviews';
 import { getNotApprovedReviews, getNotApprovedUsers } from '../../shared/api-calls/adminAPI';
@@ -8,7 +7,7 @@ import "./Admin.css";
 
 const Admin = ({ currentUser }) => {
     const [usersOrReviewFlag, setUsersOrReviewFlag] = useState(true);
-    const historyObject = useHistory();
+    // const historyObject = useHistory();
 
     const [reviews, setReviews] = useState([]);
     const [users, setUsers] = useState([]);

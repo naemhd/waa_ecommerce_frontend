@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getOneProduct } from "../../shared/api-calls/productsAPI";
 
 import "./ProductDetails.css"
 
-const ProductDetails = (props) => {
+const ProductDetails = ({ cartAddingHandler }) => {
     const params = useParams();
     const [product, setProduct] = useState(null);
+    const history = useHistory();
     useEffect(() => {
         getOneProduct(params.id).then((data) => {
             setProduct(data);
         }).catch(e => console.log(e))
     }, [params.id]);
+
     return (
         <>
             {product ? <div className="product-details-container">
@@ -55,7 +57,7 @@ const ProductDetails = (props) => {
                             <h3>{product.seller.name}</h3>
                         </div>
                         <div className="action">
-                            <button type="button">Add to cart</button>
+                            <button type="button" onClick={() => cartAddingHandler(product, history)}>Add to cart</button>
                         </div>
                     </div>
                 </div>

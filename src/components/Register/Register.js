@@ -11,6 +11,7 @@ function Register({ onRegister, SwitchUserStatus }) {
     e.preventDefault();
     onRegister(user);
   }
+  
 
   return (
     <div className="auth">
@@ -21,6 +22,7 @@ function Register({ onRegister, SwitchUserStatus }) {
           <input
             type="text"
             name="name"
+            required
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
           />
@@ -30,6 +32,7 @@ function Register({ onRegister, SwitchUserStatus }) {
           <input
             type="text"
             name="username"
+            required
             value={user.username}
             onChange={(e) => setUser({ ...user, username: e.target.value })}
           />
@@ -39,6 +42,7 @@ function Register({ onRegister, SwitchUserStatus }) {
           <input
             type="password"
             name="password"
+            required
             value={user.password}
             onChange={(e) => setUser({ ...user, password: e.target.value })}
           />
@@ -63,7 +67,9 @@ function Register({ onRegister, SwitchUserStatus }) {
           <button type="submit" className="btn btn-primary">
             Register
           </button>
-          <label className="ancor" onClick={SwitchUserStatus}>Login</label>
+          <label className="ancor" onClick={SwitchUserStatus}>
+            Login
+          </label>
         </div>
       </form>
     </div>
