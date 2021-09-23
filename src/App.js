@@ -16,6 +16,7 @@ import { loadUserData, removeUserData } from "./shared/localStorage";
 import "./App.css"
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import axios from "axios";
+import { setProductIntoCart } from "./shared/api-calls/cartAPI";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -39,6 +40,7 @@ function App() {
 
   const cartAddingHandler = (product, history) => {
     //add cart to db here...
+    setProductIntoCart(product.id);
     setCartProducts([...cartProducts, product]);
     history.push("/cart");
   }
@@ -48,6 +50,7 @@ function App() {
       {isLoggedIn ? <Header
         signOutHandler={onSignOut}
         currentUser={currentUser}
+        setCartProducts={setCartProducts}
         noOfCartProducts={cartProducts.length} /> : null}
       <div className="all-container">
         <Switch>
