@@ -9,6 +9,7 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import Header from "./components/Header";
 import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
+import Admin from "./pages/Admin/Admin";
 import { loadUserData, removeUserData } from "./shared/localStorage";
 
 import "./App.css"
@@ -56,6 +57,13 @@ function App() {
             redirectRoute="/auth"
           >
             <ProductDetails currentUser={currentUser} />
+          </PrivateRoute>
+          <PrivateRoute
+            path="/admin"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <Admin currentUser={currentUser} />
           </PrivateRoute>
           <PrivateRoute
             exact

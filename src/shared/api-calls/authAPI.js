@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 const { BACKEND_SERVER } = require("../globals");
 
 module.exports.login = function (username, password) {
-  console.log(username + "+++++" + password) ;
+  console.log(username + "+++++" + password);
   return axios
     .post(`${BACKEND_SERVER}/authenticate`, {
       username: username,
@@ -16,13 +16,9 @@ module.exports.login = function (username, password) {
     });
 };
 
-module.exports.register = function (username, email, password) {
+module.exports.register = function (userObj) {
   return axios
-    .post(`${BACKEND_SERVER}/api/register`, {
-      username: username,
-      email: email,
-      password: password,
-    })
+    .post(`${BACKEND_SERVER}/users`,  userObj)
     .then((res) => res.data)
     .catch((err) => {
       const error = err.response ? err.response.data.message : err.message;
