@@ -14,6 +14,7 @@ import Orders from "./pages/Orders/Orders";
 import { loadUserData, removeUserData } from "./shared/localStorage";
 
 import "./App.css"
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import axios from "axios";
 
 function App() {
@@ -60,8 +61,15 @@ function App() {
             <Cart />
           </PrivateRoute>
           <PrivateRoute
+             path="/product-details/:id"
+             condition={isLoggedIn}
+             redirectRoute="/auth"
+           >
+             <ProductDetails cartAddingHandler={cartAddingHandler} />
+           </PrivateRoute>
+          <PrivateRoute
             path="/admin"
-            condition={true}
+            condition={isLoggedIn}
             redirectRoute="/auth"
           >
             <Admin currentUser={currentUser} />
