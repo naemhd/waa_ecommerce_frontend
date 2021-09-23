@@ -19,11 +19,11 @@ const Login = ({ onLogin, SwitchUserStatus }) => {
         <form ref={formData} onSubmit={loginHandler}>
           <div>
             <label htmlFor="user">User</label>
-            <input type="text" id="user" />
+            <input type="text" required id="user" />
           </div>
           <div>
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input type="password" required id="password" />
           </div>
           <button type="submit">Login</button>
           <label className="ancor" onClick={SwitchUserStatus}>
