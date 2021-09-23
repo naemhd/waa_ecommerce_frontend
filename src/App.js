@@ -20,6 +20,7 @@ import axios from "axios";
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [cartProducts, setCartProducts] = useState([]);
 
 
   useEffect(() => {
@@ -39,12 +40,16 @@ function App() {
 
   const cartAddingHandler = (product, history) => {
     //add cart to db here...
+    setCartProducts([...cartProducts, product]);
     history.push("/cart");
   }
 
   return (
     <Router>
-      {isLoggedIn ? <Header signOutHandler={onSignOut} currentUser={currentUser} /> : null}
+      {isLoggedIn ? <Header
+        signOutHandler={onSignOut}
+        currentUser={currentUser}
+        noOfCartProducts={cartProducts.length} /> : null}
       <div className="all-container">
         <Switch>
           <PrivateRoute
@@ -59,7 +64,7 @@ function App() {
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Cart />
+            <Cart products={cartProducts} setProducts={setCartProducts} />
           </PrivateRoute>
           <PrivateRoute
             path="/product-details/:id"

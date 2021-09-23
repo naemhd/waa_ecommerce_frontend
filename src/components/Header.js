@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Header.css"
 
-const Header = ({ signOutHandler, currentUser }) => {
+const Header = ({ signOutHandler, currentUser, noOfCartProducts }) => {
     return (
         <header className="p-3 bg-dark text-white">
             <div className="container">
@@ -12,14 +13,18 @@ const Header = ({ signOutHandler, currentUser }) => {
                                 Products
                             </Link>
                         </li>
-                        <li>
-                            <Link to="/cart" className="nav-link px-2 text-white lead">
-                                Cart
-                            </Link>
-                        </li>
+
                         <li>
                             <Link to="/orders" className="nav-link px-2 text-white lead">
                                 Orders
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/cart" className="px-2 lead">
+                                <i className="fa" style={{ fontSize: "40px" }}>&#xf07a;</i>
+                                <span className='badge badge-warning' id='lblCartCount'>
+                                    {noOfCartProducts}
+                                </span>
                             </Link>
                         </li>
                     </ul>
@@ -37,6 +42,8 @@ const Header = ({ signOutHandler, currentUser }) => {
                             onClick={signOutHandler}>
                             <h3 className="lead m-0">Sign out</h3>
                         </button>
+
+
                     </div>
                 </div>
             </div>
