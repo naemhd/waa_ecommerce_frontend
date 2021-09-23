@@ -19,7 +19,7 @@ const Header = ({ signOutHandler, currentUser, noOfCartProducts, setCartProducts
                 <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     {currentUser.role !== ADMIN_ROLE ? <ul className="nav col-10 mb-2 mb-md-0">
                         <li>
-                            <Link to="/products" className="nav-link px-2 text-white lead">
+                            <Link to="/home" className="nav-link px-2 text-white lead">
                                 Products
                             </Link>
                         </li>

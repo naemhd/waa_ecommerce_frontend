@@ -8,7 +8,7 @@ const Cart = ({ products, setProducts }) => {
         removeProductFromCart(productId);
         setProducts(updatedProducts);
     }
-    
+
     return (
         <div className="container mt-5 mb-5">
             <div className="d-flex justify-content-center row">
@@ -85,7 +85,7 @@ const Cart = ({ products, setProducts }) => {
                             className="btn btn-warning btn-block btn-lg ml-2 pay-button"
                             type="button"
                         >
-                            Create Order
+                            Checkout
                         </button>
                     </div>
                 </div>
