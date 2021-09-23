@@ -213,3 +213,8 @@
   background: #fff;
   color: #115dd8;
 }
+
+.card-deck .card {
+  flex: inherit !important;
+  margin: 2vh !important;
+}
