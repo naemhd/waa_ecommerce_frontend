@@ -4,8 +4,9 @@ import { login, register } from "../../shared/api-calls/authAPI";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import axios from "axios";
+import { ADMIN_ROLE } from "../../shared/globals";
 
-const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
+const Authenticate = ({ setLoggedIn, setCurrentUser, setIsAdmin }) => {
   const [isNewUser, setisNewUser] = useState(false);
   const onLogin = (username, password) => {
     login(username, password)
@@ -14,6 +15,7 @@ const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
         saveUserData(res.data);
         setCurrentUser(res.data);
         setLoggedIn(true);
+        res.data.role === ADMIN_ROLE ? setIsAdmin(true) : setIsAdmin(false);
       })
       .catch((err) => console.log("err logging in", err));
   };

@@ -6,9 +6,11 @@ import "./Header.css"
 
 const Header = ({ signOutHandler, currentUser, noOfCartProducts, setCartProducts }) => {
     useEffect(() => {
-        getCurrentUserCart().then(res => {
-            setCartProducts(res.products)
-        })
+        if (currentUser.role === BUYER_ROLE) {
+            getCurrentUserCart().then(res => {
+                setCartProducts(res.products)
+            })
+        }
     }, []);
 
     return (

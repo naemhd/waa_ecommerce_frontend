@@ -59,7 +59,7 @@ const ProductDetails = ({ cartAddingHandler }) => {
                             <h3>{product.seller.name}</h3>
                         </div>
                         <div className="action">
-                            <button type="button" onClick={() => cartAddingHandler(product, history)}>Add to cart</button>
+                            <button type="button" onClick={() => cartAddingHandler(product)}>Add to cart</button>
                         </div>
                     </div>
                 </div>
