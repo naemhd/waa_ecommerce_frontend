@@ -3,13 +3,14 @@ import { saveUserData } from "../../shared/localStorage";
 import { login, register } from "../../shared/api-calls/authAPI";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
+import axios from "axios";
 
 const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
   const [isNewUser, setisNewUser] = useState(false);
   const onLogin = (username, password) => {
     login(username, password)
       .then((res) => {
-        console.log("res", res.data);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.jwt;
         saveUserData(res.data);
         setCurrentUser(res.data);
         setLoggedIn(true);
