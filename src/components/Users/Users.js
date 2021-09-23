@@ -1,41 +1,24 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { approveUser } from "../../shared/api-calls/adminAPI";
 import User from "../User/User";
 
 const Users = ({setUsersOrReviewFlag, usersOrReviewFlag, users, setUsers}) => {
 
-    // const [usersToApprove, setUsersToApprove] = useState([{ id: 1, name: "First User", billing_address: "Test" },
-    // { id: 2, name: "Second User", billing_address: "One Two" }]);
-
-
-    // const config = {
-    //     headers: { authorization: localStorage.getItem("userData") }
-    // }
-
-    // useEffect(() => {
-    //     axios.get("/users-pending-approval", config).then((res) => {
-    //         setUsersToApprove(res.data);
-    //     })
-    // }, [])
-
-    const approveUser = (user) => {
-        // axios.put("/approve-user", config).then(usr => {
-        //     setUsersToApprove(usersToApprove.filter(usr => usr.id != user.id))
-        // });
+    const approveUserHandler = (user) => {
+        approveUser(user.id);
         setUsers(users.filter(usr => user.id != usr.id))
     }
 
     const renderUser = (user) => {
         return (<User user={user} key={user.id} 
-            approveHTML={<a href="#" class="btn btn-success" onClick={() => approveUser(user)}>Approve</a>}/>
+            approveHTML={<a href="#" className="btn btn-success" onClick={() => approveUserHandler(user)}>Approve</a>}/>
             );
     }
 
-    return ( <div>
+    return ( <div className={"card-deck"}>
         {users.map(user => renderUser(user))}
-        <button onClick={() => setUsersOrReviewFlag(!usersOrReviewFlag)}>Go to Reviews</button>
+        <button className={"btn btn-dark btn-small"} onClick={() => setUsersOrReviewFlag(!usersOrReviewFlag)}>Go to Reviews</button>
     </div>);
 }
-
 
 export default Users;
