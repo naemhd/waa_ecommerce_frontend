@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getAllProducts } from "../../shared/api-calls/productsAPI";
 import "./Products.css"
 
-const Products = ({ cartAddingHandler }) => {
-    const [products, setProducts] = useState([]);
+const Products = ({ products, setProducts, cartAddingHandler }) => {
     const history = useHistory();
+
     useEffect(() => {
         getAllProducts().then((data) => {
             setProducts(data);
         }).catch(e => console.log(e))
     }, []);
-
     return (
         <div className="products-container card-deck">
             {products ? products.map((p, index) => {
