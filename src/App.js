@@ -7,23 +7,21 @@ import {
 } from "react-router-dom";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Header from "./components/Header";
-import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
-import Admin from "./pages/Admin/Admin";
 import Orders from "./pages/Orders/Orders";
 import { loadUserData, removeUserData } from "./shared/localStorage";
-
-import "./App.css"
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import axios from "axios";
 import NewProduct from "./pages/NewProduct/NewProduct";
 import { addProduct } from "./shared/api-calls/productsAPI";
 import { ADMIN_ROLE } from "./shared/globals";
-import { setProductIntoCart } from "./shared/api-calls/cartAPI";
+import { addProductIntoCart } from "./shared/api-calls/cartAPI";
+import Home from "./pages/Home/Home";
+import "./App.css"
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isAdmin, setAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
@@ -37,7 +35,7 @@ function App() {
       axios.defaults.headers.common['Accept'] = "application/json";
       setLoggedIn(true);
       setCurrentUser(data);
-      data.role === ADMIN_ROLE ? setAdmin(true) : setAdmin(false);
+      data.role === ADMIN_ROLE ? setIsAdmin(true) : setIsAdmin(false);
     }
   }, []);
 
@@ -46,13 +44,12 @@ function App() {
     removeUserData();
     setLoggedIn(false);
     setCurrentUser({});
+    setIsAdmin(false);
   };
 
-  const cartAddingHandler = (product, history) => {
-    //add cart to db here...
-    setProductIntoCart(product.id);
+  const cartAddingHandler = (product) => {
+    addProductIntoCart(product.id);
     setCartProducts([...cartProducts, product]);
-    history.push("/cart");
   }
 
   const createProduct = (product, history) => {
@@ -74,23 +71,19 @@ function App() {
       <div className="all-container">
         <Switch>
           <PrivateRoute
-            path="/products"
+            path="/home"
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Products
+            <Home
+              isAdmin={isAdmin}
               cartAddingHandler={cartAddingHandler}
               currentUser={currentUser}
               products={products}
-              setProducts={setProducts} />
+              setProducts={setProducts}
+            />
           </PrivateRoute>
-          <PrivateRoute
-            path="/admin"
-            condition={isLoggedIn}
-            redirectRoute="/auth"
-          >
-            <Admin currentUser={currentUser} />
-          </PrivateRoute>
+
           <PrivateRoute
             path="/new-product"
             condition={isLoggedIn}
@@ -119,6 +112,7 @@ function App() {
           >
             <Orders currentUser={currentUser} />
           </PrivateRoute>
+
           <PrivateRoute
             exact
             path="/auth"
@@ -128,9 +122,10 @@ function App() {
             <Authenticate
               setLoggedIn={setLoggedIn}
               setCurrentUser={setCurrentUser}
+              setIsAdmin={setIsAdmin}
             />
           </PrivateRoute>
-          {isAdmin ? <Redirect to="/admin" /> : <Redirect to="/products" />}
+          <Redirect to="/home" />
         </Switch>
       </div>
     </Router>
