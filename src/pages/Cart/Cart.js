@@ -1,11 +1,14 @@
 import React from "react";
+import { removeProductFromCart } from "../../shared/api-calls/cartAPI";
 import "./Cart.css"
 
 const Cart = ({ products, setProducts }) => {
     const deleteFromCart = (productId) => {
         const updatedProducts = products.filter(p => p.id !== productId);
+        removeProductFromCart(productId);
         setProducts(updatedProducts);
     }
+    
     return (
         <div className="container mt-5 mb-5">
             <div className="d-flex justify-content-center row">

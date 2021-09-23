@@ -19,6 +19,7 @@ import axios from "axios";
 import NewProduct from "./pages/NewProduct/NewProduct";
 import { addProduct } from "./shared/api-calls/productsAPI";
 import { ADMIN_ROLE } from "./shared/globals";
+import { setProductIntoCart } from "./shared/api-calls/cartAPI";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -49,6 +50,7 @@ function App() {
 
   const cartAddingHandler = (product, history) => {
     //add cart to db here...
+    setProductIntoCart(product.id);
     setCartProducts([...cartProducts, product]);
     history.push("/cart");
   }
@@ -67,6 +69,7 @@ function App() {
       {isLoggedIn ? <Header
         signOutHandler={onSignOut}
         currentUser={currentUser}
+        setCartProducts={setCartProducts}
         noOfCartProducts={cartProducts.length} /> : null}
       <div className="all-container">
         <Switch>
