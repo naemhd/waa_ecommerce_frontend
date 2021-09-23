@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch,
+  Switch
 } from "react-router-dom";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Header from "./components/Header";
@@ -22,7 +22,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
 
-
   useEffect(() => {
     if (loadUserData()) {
       const data = loadUserData();
@@ -38,9 +37,14 @@ function App() {
     setCurrentUser({});
   };
 
+  const cartAddingHandler = (product, history) => {
+    //add cart to db here...
+    history.push("/cart");
+  }
+
   return (
     <Router>
-      {isLoggedIn ? <Header signOutHandler={onSignOut} /> : null}
+      {isLoggedIn ? <Header signOutHandler={onSignOut} currentUser={currentUser} /> : null}
       <div className="all-container">
         <Switch>
           <PrivateRoute
@@ -48,21 +52,21 @@ function App() {
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Products currentUser={currentUser} />
+            <Products cartAddingHandler={cartAddingHandler} />
           </PrivateRoute>
           <PrivateRoute
             path="/cart"
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Cart currentUser={currentUser} />
+            <Cart />
           </PrivateRoute>
           <PrivateRoute
             path="/product-details/:id"
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <ProductDetails currentUser={currentUser} />
+            <ProductDetails cartAddingHandler={cartAddingHandler} />
           </PrivateRoute>
           <PrivateRoute
             path="/admin"
