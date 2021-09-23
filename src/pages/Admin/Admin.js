@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import UsersToApprove from '../../components/UsersToApprove/UsersToApprove';
-import ReviewsToApprove from '../../components/UsersToReview/UsersToReview';
+import ReviewsToApprove from '../../components/ReviewsToApprove/ReviewsToApprove';
 import { ADMIN_ROLE } from '../../shared/globals';
 
 const Admin = ({ currentUser }) => {
