@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { getCurrentUserCart, removeProductFromCart } from "../../shared/api-calls/cartAPI";
+import React from "react";
+import { removeProductFromCart } from "../../shared/api-calls/cartAPI";
 import "./Cart.css"
 
 const Cart = ({ products, setProducts }) => {
@@ -8,14 +8,6 @@ const Cart = ({ products, setProducts }) => {
         removeProductFromCart(productId);
         setProducts(updatedProducts);
     }
-
-    const [userCart, setUserCart] = useState(null);
-    useEffect(() => {
-        getCurrentUserCart().then(res => {
-            console.log(res)
-            setUserCart(res)
-        })
-    }, []);
     
     return (
         <div className="container mt-5 mb-5">
