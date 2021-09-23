@@ -12,6 +12,9 @@ import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
 import { loadUserData, removeUserData } from "./shared/localStorage";
 
+import "./App.css"
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
+
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
@@ -32,41 +35,50 @@ function App() {
   return (
     <Router>
       <Header signOutHandler={onSignOut} />
-      <Switch>
-        <PrivateRoute
-          path="/products"
-          condition={isLoggedIn}
-          redirectRoute="/auth"
-        >
-          <Products currentUser={currentUser} />
-        </PrivateRoute>
-        <PrivateRoute
-          path="/cart"
-          condition={isLoggedIn}
-          redirectRoute="/auth"
-        >
-          <Cart currentUser={currentUser} />
-        </PrivateRoute>
-        <PrivateRoute
-          path="/admin"
-          condition={isLoggedIn}
-          redirectRoute="/auth"
-        >
-          <Admin currentUser={currentUser} />
-        </PrivateRoute>
-        <PrivateRoute
-          exact
-          path="/auth"
-          condition={!isLoggedIn}
-          redirectRoute="/"
-        >
-          <Authenticate
-            setLoggedIn={setLoggedIn}
-            setCurrentUser={setCurrentUser}
-          />
-        </PrivateRoute>
-        <Redirect to="/products" />
-      </Switch>
+      <div className="all-container">
+        <Switch>
+          <PrivateRoute
+            path="/products"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <Products currentUser={currentUser} />
+          </PrivateRoute>
+          <PrivateRoute
+            path="/cart"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <Cart currentUser={currentUser} />
+          </PrivateRoute>
+          <PrivateRoute
+            path="/product-details/:id"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <ProductDetails currentUser={currentUser} />
+          </PrivateRoute>
+          <PrivateRoute
+            path="/admin"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <Admin currentUser={currentUser} />
+          </PrivateRoute>
+          <PrivateRoute
+            exact
+            path="/auth"
+            condition={!isLoggedIn}
+            redirectRoute="/"
+          >
+            <Authenticate
+              setLoggedIn={setLoggedIn}
+              setCurrentUser={setCurrentUser}
+            />
+          </PrivateRoute>
+          <Redirect to="/products" />
+        </Switch>
+      </div>
     </Router>
   );
 }

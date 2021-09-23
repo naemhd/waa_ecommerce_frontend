@@ -1,3 +1,4 @@
+import axios from "axios";
 import { decodeToken } from "react-jwt";
 
 export const loadUserData = () => {
@@ -10,9 +11,10 @@ export const loadUserData = () => {
     }
 };
 
-export const saveUserData = (userData) => {
+export const saveUserData = (token) => {
     try {
-        localStorage.setItem("userData", userData);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        localStorage.setItem("userData", token);
     } catch (error) {
         console.error(error);
     }
