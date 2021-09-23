@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getCurrentUserCart } from "../shared/api-calls/cartAPI";
 import "./Header.css"
 
-const Header = ({ signOutHandler, currentUser, noOfCartProducts }) => {
+const Header = ({ signOutHandler, currentUser, noOfCartProducts, setCartProducts }) => {
+    useEffect(() => {
+        getCurrentUserCart().then(res => {
+            setCartProducts(res.products)
+        })
+    }, []);
+
     return (
         <header className="p-3 bg-dark text-white">
             <div className="container">
