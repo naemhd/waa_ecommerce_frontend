@@ -22,7 +22,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cartProducts, setCartProducts] = useState([]);
 
-
   useEffect(() => {
     if (loadUserData()) {
       const data = loadUserData();
