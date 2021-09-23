@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import User from "../User/User";
 
-const UsersToApprove = ({setUsersOrReviewFlag, usersOrReviewFlag}) => {
+const Users = ({setUsersOrReviewFlag, usersOrReviewFlag, users, setUsers}) => {
 
-    const [usersToApprove, setUsersToApprove] = useState([{ id: 1, name: "First User", billing_address: "Test" },
-    { id: 2, name: "Second User", billing_address: "One Two" }]);
+    // const [usersToApprove, setUsersToApprove] = useState([{ id: 1, name: "First User", billing_address: "Test" },
+    // { id: 2, name: "Second User", billing_address: "One Two" }]);
 
 
     // const config = {
@@ -22,7 +22,7 @@ const UsersToApprove = ({setUsersOrReviewFlag, usersOrReviewFlag}) => {
         // axios.put("/approve-user", config).then(usr => {
         //     setUsersToApprove(usersToApprove.filter(usr => usr.id != user.id))
         // });
-        setUsersToApprove(usersToApprove.filter(usr => user.id != usr.id))
+        setUsers(users.filter(usr => user.id != usr.id))
     }
 
     const renderUser = (user) => {
@@ -32,10 +32,10 @@ const UsersToApprove = ({setUsersOrReviewFlag, usersOrReviewFlag}) => {
     }
 
     return ( <div>
-        {usersToApprove.map(user => renderUser(user))}
+        {users.map(user => renderUser(user))}
         <button onClick={() => setUsersOrReviewFlag(!usersOrReviewFlag)}>Go to Reviews</button>
     </div>);
 }
 
 
-export default UsersToApprove;
+export default Users;
