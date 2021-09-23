@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Register({ onRegister ,btn }) {
+function Register({ onRegister ,SwitchUserStatus }) {
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -65,7 +65,7 @@ function Register({ onRegister ,btn }) {
           <button type="submit" className="btn btn-primary">
             Register
           </button>
-          <a onClick={btn}>Cancel</a>
+          <label className="ancor" onClick={SwitchUserStatus}>Cancel</label>
         </div>
       </form>
     </div>

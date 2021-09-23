@@ -22,10 +22,7 @@ const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
   const onRegister = (userObj) => {
     register(userObj)
       .then((data) => {
-        saveUserData(data.token);
-        const decoded = decodeToken(data.token);
-        setCurrentUser(decoded);
-        setLoggedIn(true);
+        setisNewUser(false);
       })
       .catch((err) => console.log(err));
   };
@@ -36,14 +33,10 @@ const Authenticate = ({ setLoggedIn, setCurrentUser }) => {
   return (
     <div>
       {isNewUser ? (
-        <>
-          <Register onRegister={onRegister} btn={SwitchUserStatus} />
-          
-        </>
+        <Register onRegister={onRegister} SwitchUserStatus={SwitchUserStatus} />
       ) : (
         <div>
-          <Login onLogin={onLogin} btn={SwitchUserStatus} />
-        
+          <Login onLogin={onLogin} SwitchUserStatus={SwitchUserStatus} />
         </div>
       )}
     </div>
