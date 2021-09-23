@@ -61,12 +61,12 @@ function App() {
             <Cart />
           </PrivateRoute>
           <PrivateRoute
-             path="/product-details/:id"
-             condition={isLoggedIn}
-             redirectRoute="/auth"
-           >
-             <ProductDetails cartAddingHandler={cartAddingHandler} />
-           </PrivateRoute>
+            path="/product-details/:id"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <ProductDetails cartAddingHandler={cartAddingHandler} />
+          </PrivateRoute>
           <PrivateRoute
             path="/admin"
             condition={isLoggedIn}
