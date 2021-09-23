@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-function Register({ onRegister ,SwitchUserStatus }) {
+function Register({ onRegister, SwitchUserStatus }) {
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -14,7 +13,6 @@ function Register({ onRegister ,SwitchUserStatus }) {
   }
 
   return (
-    // <div className="col-lg-8 offset-lg-2">
     <div className="auth">
       <h2>Register</h2>
       <form name="form" onSubmit={handleSubmit}>
@@ -65,7 +63,7 @@ function Register({ onRegister ,SwitchUserStatus }) {
           <button type="submit" className="btn btn-primary">
             Register
           </button>
-          <label className="ancor" onClick={SwitchUserStatus}>Cancel</label>
+          <label className="ancor" onClick={SwitchUserStatus}>Login</label>
         </div>
       </form>
     </div>

@@ -1,20 +1,16 @@
-import axios from "axios";
-import { decodeToken } from "react-jwt";
-
 export const loadUserData = () => {
     try {
-        const decoded = decodeToken(localStorage.getItem("userData"));
-        if (!decoded) return undefined;
-        return decoded;
+        const objected = JSON.parse(localStorage.getItem("userData"));
+        return objected;
     } catch (error) {
         console.error(error);
     }
 };
 
-export const saveUserData = (token) => {
+export const saveUserData = (data) => {
     try {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        localStorage.setItem("userData", token);
+        const jsoned = JSON.stringify(data);
+        localStorage.setItem("userData", jsoned);
     } catch (error) {
         console.error(error);
     }

@@ -25,6 +25,7 @@
   text-decoration: solid;
   margin: 1rem;
   position: relative;
+  cursor: pointer;
 }
 
 .auth label {
