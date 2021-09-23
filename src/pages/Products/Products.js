@@ -14,7 +14,7 @@ const Products = ({ cartAddingHandler }) => {
 
     return (
         <div className="products-container card-deck">
-            {products.map((p, index) => {
+            {products ? products.map((p, index) => {
                 return (
                     <div key={index} className="card" style={{ width: "18rem" }}>
                         <div className="card-body">
@@ -30,7 +30,7 @@ const Products = ({ cartAddingHandler }) => {
                         </div>
                     </div>
                 )
-            })}
+            }) : null}
         </div>)
 }
 

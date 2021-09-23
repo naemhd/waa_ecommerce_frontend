@@ -1,7 +1,11 @@
 import React from "react";
 import "./Cart.css"
 
-const Cart = (props) => {
+const Cart = ({ products, setProducts }) => {
+    const deleteFromCart = (productId) => {
+        const updatedProducts = products.filter(p => p.id !== productId);
+        setProducts(updatedProducts);
+    }
     return (
         <div className="container mt-5 mb-5">
             <div className="d-flex justify-content-center row">
@@ -14,44 +18,50 @@ const Cart = (props) => {
                             <i className="fa fa-angle-down"></i>
                         </div>
                     </div>
-                    <div
-                        className="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded"
-                    >
-                        <div className="mr-1">
-                            <img
-                                className="rounded"
-                                src="cartCar.jpeg"
-                                width="70"
-                                alt="cartCar"
-                            />
-                        </div>
-                        <div
-                            className="d-flex flex-column align-items-center product-details"
+
+                    {/* Cart Products goes here... */}
+                    {products ? products.map((p, index) => {
+                        return (<div
+                            className="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded"
+                            key={p.id}
                         >
-                            <span className="font-weight-bold">Basic T-shirt</span>
-                            <div className="d-flex flex-row product-desc">
-                                <div className="size mr-1">
-                                    <span className="text-grey">Size:</span
-                                    ><span className="font-weight-bold">&nbsp;M</span>
-                                </div>
-                                <div className="color">
-                                    <span className="text-grey">Color:</span
-                                    ><span className="font-weight-bold">&nbsp;Grey</span>
+                            <div className="mr-1">
+                                <img
+                                    className="rounded"
+                                    src="cartCar.jpeg"
+                                    width="70"
+                                    alt="cartCar"
+                                />
+                            </div>
+                            <div
+                                className="d-flex flex-column align-items-center product-details"
+                            >
+                                <span className="font-weight-bold">{p.title}</span>
+                                <div className="d-flex flex-row product-desc">
+                                    <div className="size mr-1">
+                                        <span className="text-grey">Seller:</span
+                                        ><span className="font-weight-bold">&nbsp;{p.seller.name}</span>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
-                        <div className="d-flex flex-row align-items-center qty">
-                            <i className="fa fa-minus text-danger"></i>
-                            <h5 className="text-grey mt-1 mr-1 ml-1">2</h5>
-                            <i className="fa fa-plus text-success"></i>
-                        </div>
-                        <div>
-                            <h5 className="text-grey">$20.00</h5>
-                        </div>
-                        <div className="d-flex align-items-center">
-                            <i className="fa fa-trash mb-1 text-danger"></i>
-                        </div>
-                    </div>
+                            <div className="d-flex flex-row align-items-center qty">
+                                <i className="fa fa-minus text-danger"></i>
+                                <h5 className="text-grey mt-1 mr-1 ml-1">1</h5>
+                                <i className="fa fa-plus text-success"></i>
+                            </div>
+                            <div>
+                                <h5 className="text-grey">${p.price}</h5>
+                            </div>
+                            <div className="d-flex align-items-center">
+                                <button type="button" className="btn" onClick={() => deleteFromCart(p.id)}>
+                                    <i className="fa fa-trash mb-1 text-danger"></i>
+                                </button>
+
+                            </div>
+                        </div>)
+                    }) : null}
+
 
                     <div
                         className="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"

@@ -20,7 +20,9 @@ const ProductDetails = ({ cartAddingHandler }) => {
                 <div className="card">
                     <div className="card__title">
                         <div className="icon">
-                            <a href="1"><i className="fa fa-arrow-left"></i></a>
+                            <a href="1" onClick={() => history.push("/products")}>
+                                <i className="fa fa-arrow-left"></i>
+                            </a>
                         </div>
                         <h3>Details</h3>
                     </div>
