@@ -5,13 +5,12 @@ function Register({ onRegister, SwitchUserStatus }) {
     name: "",
     username: "",
     password: "",
-    roles: [{ id: "1" }],
+    roles: [{ id: "2" }],
   });
   function handleSubmit(e) {
     e.preventDefault();
     onRegister(user);
   }
-  
 
   return (
     <div className="auth">
@@ -55,9 +54,8 @@ function Register({ onRegister, SwitchUserStatus }) {
             onChange={(e) =>
               setUser({ ...user, roles: [{ id: e.target.value }] })
             }
-            value={"1"}
+            value={user.roles[0].id}
           >
-            <option value="1">Admin</option>
             <option value="2">Buyer</option>
             <option value="3">Seller</option>
           </select>
