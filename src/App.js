@@ -26,6 +26,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   const [products, setProducts] = useState(null);
+  const [cartId, setCartId] = useState(null);
   const [cartProducts, setCartProducts] = useState(null);
   const [cartProductsIds, setCartProductsIds] = useState(null);
 
@@ -74,6 +75,7 @@ function App() {
       {isLoggedIn ? <Header
         signOutHandler={onSignOut}
         currentUser={currentUser}
+        setCartId={setCartId}
         setCartProducts={setCartProducts}
         setCartProductsIds={setCartProductsIds}
         noOfCartProducts={cartProducts ? cartProducts.length : 0} /> : null}
@@ -107,7 +109,12 @@ function App() {
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Cart products={cartProducts} setProducts={setCartProducts} setProductsIds={setCartProductsIds} />
+            <Cart
+              products={cartProducts}
+              setProducts={setCartProducts}
+              setProductsIds={setCartProductsIds}
+              cartId={cartId}
+            />
           </PrivateRoute>
           <PrivateRoute
             path="/profile/:id"

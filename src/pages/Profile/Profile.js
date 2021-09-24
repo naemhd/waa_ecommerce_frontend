@@ -27,20 +27,22 @@ const Profile = ({ currenUser, currentUserFollowing, setcurrentUserFollowing }) 
         }).catch(e => console.log(e));
     }
     return (<>
-        {currenUser.role === BUYER_ROLE && sellerProfile && <div className="card">
-            <h5>{sellerProfile.name}</h5>
-            <p className="card-subtitle">{sellerProfile.billing_address}</p>
-            <p className="card-subtitle">{sellerProfile.shipping_address}</p>
-            {currentUserFollowing.includes(sellerProfile.id) ?
-                <button className="btn btn-warning" onClick={unFollow}>
-                    Unfollow
-                </button>
-                :
-                <button className="btn btn-warning" onClick={follow}>
-                    Follow
-                </button>
-            }
-        </div>}
+        {currenUser.role === BUYER_ROLE && sellerProfile &&
+            <div className="card">
+                <h5>{sellerProfile.name}</h5>
+                <p className="card-subtitle">Billing Address: {sellerProfile.billing_address}</p>
+                <p className="card-subtitle">Shipping Address: {sellerProfile.shipping_address}</p>
+                {currentUserFollowing.includes(sellerProfile.id) ?
+                    <button className="btn btn-warning" onClick={unFollow}>
+                        Unfollow
+                    </button>
+                    :
+                    <button className="btn btn-warning" onClick={follow}>
+                        Follow
+                    </button>
+                }
+            </div>
+        }
     </>)
 }
 

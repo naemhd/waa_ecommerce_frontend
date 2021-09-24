@@ -4,16 +4,17 @@ import { ADMIN_ROLE, BUYER_ROLE } from "../shared/globals";
 import { getCurrentUserCart } from "../shared/api-calls/cartAPI";
 import "./Header.css"
 
-const Header = ({ signOutHandler, currentUser, noOfCartProducts, setCartProducts, setCartProductsIds }) => {
+const Header = ({
+    signOutHandler, currentUser, noOfCartProducts, setCartProducts, setCartProductsIds, setCartId }) => {
     useEffect(() => {
         if (currentUser.role === BUYER_ROLE) {
             getCurrentUserCart().then(res => {
-                console.log("cart", res);
+                setCartId(res.id);
                 setCartProducts(res.products);
                 setCartProductsIds(res.products.map(p => p.id));
             })
         }
-    }, [setCartProducts, setCartProductsIds, currentUser.role]);
+    }, [setCartProducts, setCartProductsIds, currentUser.role, setCartId]);
 
     return (
         <header className="p-3 bg-dark text-white">
