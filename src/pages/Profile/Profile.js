@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { followUser, getSeller, unFollowUser } from "../../shared/api-calls/userAPI";
 import { BUYER_ROLE } from "../../shared/globals";
+import "./Profile.css"
 
 const Profile = ({ currenUser, currentUserFollowing, setcurrentUserFollowing }) => {
     const params = useParams();
@@ -28,10 +29,11 @@ const Profile = ({ currenUser, currentUserFollowing, setcurrentUserFollowing }) 
     }
     return (<>
         {currenUser.role === BUYER_ROLE && sellerProfile &&
-            <div className="card">
+            <div className="card profile">
                 <h5>{sellerProfile.name}</h5>
-                <p className="card-subtitle">Billing Address: {sellerProfile.billing_address}</p>
-                <p className="card-subtitle">Shipping Address: {sellerProfile.shipping_address}</p>
+                <p className="card-subtitle">Email: {sellerProfile.email}</p>
+                {" "}
+                <p className="card-subtitle">Address: {sellerProfile.shipping_address}</p>
                 {currentUserFollowing.includes(sellerProfile.id) ?
                     <button className="btn btn-warning" onClick={unFollow}>
                         Unfollow
