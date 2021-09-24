@@ -54,6 +54,7 @@ function App() {
   }
 
   const createProduct = (product, history) => {
+    console.log("product", product);
     addProduct(product)
       .then(data => {
         console.log("new product", data);

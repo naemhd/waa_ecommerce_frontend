@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Users from '../../components/Users/Users';
 import Reviews from '../../components/Reviews/Reviews';
 import { getNotApprovedReviews, getNotApprovedUsers } from '../../shared/api-calls/adminAPI';
-import { ADMIN_ROLE } from '../../shared/globals';
 import "./Admin.css";
 
 const Admin = ({ currentUser }) => {
     const [usersOrReviewFlag, setUsersOrReviewFlag] = useState(true);
-    // const historyObject = useHistory();
-
     const [reviews, setReviews] = useState([]);
     const [users, setUsers] = useState([]);
 
@@ -26,11 +23,10 @@ const Admin = ({ currentUser }) => {
 
     return (
         <div>
-            {/* { currentUser.roleName == ADMIN_ROLE ? null : historyObject.push("/products") } */}
             <div className="container admin-container">
                 {usersOrReviewFlag ?
-                 <Users setUsersOrReviewFlag={setUsersOrReviewFlag} usersOrReviewFlag={usersOrReviewFlag} users={users} setUsers={setUsers}/>
-                  : <Reviews setUsersOrReviewFlag={setUsersOrReviewFlag} usersOrReviewFlag={usersOrReviewFlag} reviews={reviews} setReviews={setReviews}/> }
+                    <Users setUsersOrReviewFlag={setUsersOrReviewFlag} usersOrReviewFlag={usersOrReviewFlag} users={users} setUsers={setUsers} />
+                    : <Reviews setUsersOrReviewFlag={setUsersOrReviewFlag} usersOrReviewFlag={usersOrReviewFlag} reviews={reviews} setReviews={setReviews} />}
             </div>
         </div>
     );

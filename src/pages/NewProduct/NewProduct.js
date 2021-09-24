@@ -11,7 +11,8 @@ const NewProduct = ({ addProduct }) => {
         e.preventDefault();
         const title = formRef.current["title"].value;
         const price = formRef.current["price"].value;
-        addProduct({ title, price }, history)
+        const description = formRef.current["description"].value;
+        addProduct({ title, price, description }, history)
     }
 
     return (

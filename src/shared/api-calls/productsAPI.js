@@ -9,6 +9,12 @@ module.exports.getAllProducts = function () {
         .then((res) => res.data)
 };
 
+module.exports.getUserProducts = function () {
+    return axios
+        .get(`${BACKEND_SERVER}/products/mine`)
+        .then((res) => res.data)
+};
+
 module.exports.addProduct = function (product) {
     return axios
         .post(`${BACKEND_SERVER}/products`, product)
@@ -18,5 +24,12 @@ module.exports.addProduct = function (product) {
 module.exports.getOneProduct = function (id) {
     return axios
         .get(`${BACKEND_SERVER}/products/${id}`)
+        .then((res) => res.data)
+};
+
+
+module.exports.deleteProduct = function (id) {
+    return axios
+        .delete(`${BACKEND_SERVER}/products/${id}`)
         .then((res) => res.data)
 };

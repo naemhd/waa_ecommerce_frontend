@@ -11,7 +11,7 @@ const Header = ({ signOutHandler, currentUser, noOfCartProducts, setCartProducts
                 setCartProducts(res.products)
             })
         }
-    }, []);
+    }, [setCartProducts, currentUser.role]);
 
     return (
         <header className="p-3 bg-dark text-white">
