@@ -1,25 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 import { createOrder } from "../../shared/api-calls/ordersAPI";
-import { removeProductFromCart } from "../../shared/api-calls/cartAPI";
+import { deleteCart, removeProductFromCart } from "../../shared/api-calls/cartAPI";
 import "./Cart.css";
 
-const Cart = ({ products, setProducts }) => {
+const Cart = ({ products, setProducts, setProductsIds, cartId }) => {
   const history = useHistory();
-  const product = { product  :  products};
+  // const product = { product  :  products};
   const deleteFromCart = (productId) => {
-    const updatedProducts = products.filter((p) => p.id !== productId);
-    removeProductFromCart(productId)
-      .then((res) => {
-        setProducts(updatedProducts);
-      })
-      .catch((e) => console.log(e));
-  };
-
+    removeProductFromCart(productId).then(res => {
+      const id = parseInt(productId);
+      const updatedProducts = products.filter(p => p.id !== id);
+      setProducts(updatedProducts);
+      setProductsIds(updatedProducts.map(p => p.id));
+    }).catch(e => console.log(e));
+  }
   const handleCheckout = () => {
-    createOrder(product)
+    const newOrder = {
+      product: products
+    }
+    createOrder(newOrder)
       .then((data) => {
-        history.push("/orders");
+        deleteCart(cartId).then(() => {
+          setProducts(null);
+          history.push("/orders");
+        }).catch(e => console.log(e))
       })
       .catch((e) => console.log(e));
   };
@@ -40,50 +45,50 @@ const Cart = ({ products, setProducts }) => {
           {/* Cart Products goes here... */}
           {products
             ? products.map((p, index) => {
-                return (
-                  <div
-                    className="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded"
-                    key={p.id}
-                  >
-                    <div className="mr-1">
-                      <img
-                        className="rounded"
-                        src="cartCar.jpeg"
-                        width="70"
-                        alt="cartCar"
-                      />
-                    </div>
-                    <div className="d-flex flex-column align-items-center product-details">
-                      <span className="font-weight-bold">{p.title}</span>
-                      <div className="d-flex flex-row product-desc">
-                        <div className="size mr-1">
-                          <span className="text-grey">Seller:</span>
-                          <span className="font-weight-bold">
-                            &nbsp;{p.seller.name}
-                          </span>
-                        </div>
+              return (
+                <div
+                  className="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded"
+                  key={p.id}
+                >
+                  <div className="mr-1">
+                    <img
+                      className="rounded"
+                      src="cartCar.jpeg"
+                      width="70"
+                      alt="cartCar"
+                    />
+                  </div>
+                  <div className="d-flex flex-column align-items-center product-details">
+                    <span className="font-weight-bold">{p.title}</span>
+                    <div className="d-flex flex-row product-desc">
+                      <div className="size mr-1">
+                        <span className="text-grey">Seller:</span>
+                        <span className="font-weight-bold">
+                          &nbsp;{p.seller.name}
+                        </span>
                       </div>
                     </div>
-                    <div className="d-flex flex-row align-items-center qty">
-                      <i className="fa fa-minus text-danger"></i>
-                      <h5 className="text-grey mt-1 mr-1 ml-1">1</h5>
-                      <i className="fa fa-plus text-success"></i>
-                    </div>
-                    <div>
-                      <h5 className="text-grey">${p.price}</h5>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <button
-                        type="button"
-                        className="btn"
-                        onClick={() => deleteFromCart(p.id)}
-                      >
-                        <i className="fa fa-trash mb-1 text-danger"></i>
-                      </button>
-                    </div>
                   </div>
-                );
-              })
+                  <div className="d-flex flex-row align-items-center qty">
+                    <i className="fa fa-minus text-danger"></i>
+                    <h5 className="text-grey mt-1 mr-1 ml-1">1</h5>
+                    <i className="fa fa-plus text-success"></i>
+                  </div>
+                  <div>
+                    <h5 className="text-grey">${p.price}</h5>
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => deleteFromCart(p.id)}
+                    >
+                      <i className="fa fa-trash mb-1 text-danger"></i>
+                    </button>
+                  </div>
+                </div>
+              );
+            })
             : null}
 
           <div className="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
@@ -112,6 +117,8 @@ const Cart = ({ products, setProducts }) => {
       </div>
     </div>
   );
+
+
 };
 
 export default Cart;

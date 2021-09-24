@@ -17,3 +17,9 @@ module.exports.removeProductFromCart = function (product_id) {
     .then((res) => res.data);
 };
 
+module.exports.deleteCart = function (cartId) {
+  return axios
+    .delete(`${BACKEND_SERVER}/cart/${cartId}`)
+    .then((res) => res.data);
+};
+

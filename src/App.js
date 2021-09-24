@@ -24,9 +24,13 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
   const [products, setProducts] = useState(null);
-  const [cartProducts, setCartProducts] = useState([]);
-  const [userFollowing, setUserFollowing] = useState([1, 2, 3]);
+  const [cartId, setCartId] = useState(null);
+  const [cartProducts, setCartProducts] = useState(null);
+  const [cartProductsIds, setCartProductsIds] = useState(null);
+
+  const [userFollowing, setUserFollowing] = useState([]);
 
   useEffect(() => {
     if (loadUserData()) {
@@ -50,8 +54,10 @@ function App() {
   };
 
   const cartAddingHandler = (product) => {
-    addProductIntoCart(product.id).then(res => {
-      setCartProducts([...cartProducts, product]);
+    addProductIntoCart(product.id).then(data => {
+      console.log("newProduct in cart: ", data);
+      setCartProducts([...cartProducts, data]);
+      setCartProductsIds([...cartProductsIds, product.id])
     }).catch(e => console.log(e));
   }
 
@@ -69,8 +75,10 @@ function App() {
       {isLoggedIn ? <Header
         signOutHandler={onSignOut}
         currentUser={currentUser}
+        setCartId={setCartId}
         setCartProducts={setCartProducts}
-        noOfCartProducts={cartProducts.length} /> : null}
+        setCartProductsIds={setCartProductsIds}
+        noOfCartProducts={cartProducts ? cartProducts.length : 0} /> : null}
       <div className="all-container">
         <Switch>
           <PrivateRoute
@@ -85,6 +93,7 @@ function App() {
               currentUser={currentUser}
               products={products}
               setProducts={setProducts}
+              cartProductsIds={cartProductsIds}
             />
           </PrivateRoute>
 
@@ -100,21 +109,33 @@ function App() {
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Cart products={cartProducts} setProducts={setCartProducts} />
+            <Cart
+              products={cartProducts}
+              setProducts={setCartProducts}
+              setProductsIds={setCartProductsIds}
+              cartId={cartId}
+            />
           </PrivateRoute>
           <PrivateRoute
             path="/profile/:id"
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <Profile currenUser={currentUser} userFollowing={userFollowing} setUserFollowing={setUserFollowing} />
+            <Profile
+              currenUser={currentUser}
+              currentUserFollowing={userFollowing}
+              setcurrentUserFollowing={setUserFollowing}
+            />
           </PrivateRoute>
           <PrivateRoute
             path="/product-details/:id"
             condition={isLoggedIn}
             redirectRoute="/auth"
           >
-            <ProductDetails cartAddingHandler={cartAddingHandler} cartProducts={cartProducts} />
+            <ProductDetails
+              cartAddingHandler={cartAddingHandler}
+              cartProducts={cartProducts}
+              cartProductsIds={cartProductsIds} />
           </PrivateRoute>
           <PrivateRoute
             path="/orders"
