@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { getOneProduct } from "../../shared/api-calls/productsAPI";
 
 import "./ProductDetails.css"
@@ -64,7 +64,11 @@ const ProductDetails = ({ cartAddingHandler, cartProducts }) => {
                                 :
                                 <button type="button" onClick={() => cartAddingHandler(product)}>Add to cart</button>
                             }
-
+                            <Link
+                                to={`/profile/${product.seller.id}`}
+                                className="btn btn-link">
+                                Seller Profile
+                            </Link>
                         </div>
                     </div>
                 </div>

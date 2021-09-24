@@ -18,6 +18,7 @@ import { ADMIN_ROLE } from "./shared/globals";
 import { addProductIntoCart } from "./shared/api-calls/cartAPI";
 import Home from "./pages/Home/Home";
 import "./App.css"
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -25,6 +26,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
+  const [userFollowing, setUserFollowing] = useState([1, 2, 3]);
 
   useEffect(() => {
     if (loadUserData()) {
@@ -100,6 +102,13 @@ function App() {
             redirectRoute="/auth"
           >
             <Cart products={cartProducts} setProducts={setCartProducts} />
+          </PrivateRoute>
+          <PrivateRoute
+            path="/profile/:id"
+            condition={isLoggedIn}
+            redirectRoute="/auth"
+          >
+            <Profile currenUser={currentUser} userFollowing={userFollowing} setUserFollowing={setUserFollowing} />
           </PrivateRoute>
           <PrivateRoute
             path="/product-details/:id"
