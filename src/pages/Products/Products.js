@@ -4,7 +4,7 @@ import { deleteProduct, getAllProducts, getUserProducts } from "../../shared/api
 import { SELLER_ROLE } from "../../shared/globals";
 import "./Products.css"
 
-const Products = ({ products, setProducts, cartAddingHandler, cartProducts, currentUser }) => {
+const Products = ({ products, setProducts, cartAddingHandler, cartProducts, currentUser, cartProductsIds }) => {
     useEffect(() => {
         if (currentUser.role === SELLER_ROLE) {
             getUserProducts().then((data) => {
@@ -23,6 +23,7 @@ const Products = ({ products, setProducts, cartAddingHandler, cartProducts, curr
             setProducts(updatedProducts);
         }).catch(e => console.log(e))
     }
+    console.log("ids", cartProductsIds);
     return (
         <div className="products-container card-deck">
             {products ? products.map((p, index) => {
@@ -36,11 +37,11 @@ const Products = ({ products, setProducts, cartAddingHandler, cartProducts, curr
                                 <button onClick={() => onDelete(p.id)} className="btn btn-danger">Delete</button>
                                 :
                                 <>
-                                    {cartProducts.find(cp => cp.id === p.id) ?
+                                    {cartProductsIds ? cartProductsIds.includes(p.id) ?
                                         <label className="label label-success">Added</label>
                                         :
                                         <button onClick={() => cartAddingHandler(p)} className="btn btn-link">Add to cart</button>
-                                    }
+                                        : null}
                                     <Link
                                         to={`/product-details/${p.id}`}
                                         className="btn btn-link">

@@ -2,11 +2,14 @@ import React from "react";
 import { removeProductFromCart } from "../../shared/api-calls/cartAPI";
 import "./Cart.css"
 
-const Cart = ({ products, setProducts }) => {
+const Cart = ({ products, setProducts, setProductsIds }) => {
     const deleteFromCart = (productId) => {
-        const updatedProducts = products.filter(p => p.id !== productId);
-        removeProductFromCart(productId);
-        setProducts(updatedProducts);
+        removeProductFromCart(productId).then(res => {
+            const id = parseInt(productId);
+            const updatedProducts = products.filter(p => p.id !== id);
+            setProducts(updatedProducts);
+            setProductsIds(updatedProducts.map(p => p.id));
+        }).catch(e => console.log(e));
     }
 
     return (
@@ -26,7 +29,7 @@ const Cart = ({ products, setProducts }) => {
                     {products ? products.map((p, index) => {
                         return (<div
                             className="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded"
-                            key={p.id}
+                            key={index}
                         >
                             <div className="mr-1">
                                 <img

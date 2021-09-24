@@ -3,44 +3,44 @@ import { useParams } from "react-router-dom";
 import { followUser, getSeller, unFollowUser } from "../../shared/api-calls/userAPI";
 import { BUYER_ROLE } from "../../shared/globals";
 
-const Profile = ({ currenUser, userFollowing, setUserFollowing }) => {
+const Profile = ({ currenUser, currentUserFollowing, setcurrentUserFollowing }) => {
     const params = useParams();
-    const [userFollowers, setUserFollowers] = useState([]);
+    const currentId = parseInt(params.id);
+
     const [sellerProfile, setSellerProfile] = useState(null);
 
-    useEffect(()=> {
-        getSeller(params.id).then(data => {
+    useEffect(() => {
+        getSeller(currentId).then(data => {
             setSellerProfile(data);
-        }) 
-    }, []);
+        }).catch(e => console.log(e))
+    }, [currentId]);
 
-    const alreadyFollowing = () => {
-        return userFollowing.includes(sellerProfile.id);
+    const follow = () => {
+        followUser(currentId).then(() => {
+            setcurrentUserFollowing([...currentUserFollowing, currentId]);
+        }).catch(e => console.log(e));
     }
-
-    const handleFollowing = () => {
-        if(alreadyFollowing) {
-            followUser(params.id).then(() => {
-                setUserFollowing(userFollowing.filter(user => user.id !== sellerProfile.id));
-                setUserFollowers(userFollowers.filter(user => user.id !== sellerProfile.id));
-            });
-
-        } else {
-            unFollowUser(params.id).then(() => {
-                setUserFollowers(sellerProfile.id);
-                setUserFollowing(sellerProfile.id);
-            });
-        }
+    const unFollow = () => {
+        unFollowUser(currentId).then(() => {
+            const updatedFollowing = currentUserFollowing.filter(id => id !== currentId)
+            setcurrentUserFollowing(updatedFollowing);
+        }).catch(e => console.log(e));
     }
-
     return (<>
-        { currenUser.role === BUYER_ROLE && sellerProfile && <div className="card">
+        {currenUser.role === BUYER_ROLE && sellerProfile && <div className="card">
             <h5>{sellerProfile.name}</h5>
             <p className="card-subtitle">{sellerProfile.billing_address}</p>
-            <p lassName="card-subtitle">{sellerProfile.shipping_address}</p>
-            <h3>Followers: {sellerProfile.followers.length}</h3>
-            <button className="btn btn-warning" onClick={handleFollowing}>{alreadyFollowing() ? "Unfollow" : "Follow"}</button>        
-            </div>}
+            <p className="card-subtitle">{sellerProfile.shipping_address}</p>
+            {currentUserFollowing.includes(sellerProfile.id) ?
+                <button className="btn btn-warning" onClick={unFollow}>
+                    Unfollow
+                </button>
+                :
+                <button className="btn btn-warning" onClick={follow}>
+                    Follow
+                </button>
+            }
+        </div>}
     </>)
 }
 

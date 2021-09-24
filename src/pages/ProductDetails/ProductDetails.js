@@ -4,7 +4,7 @@ import { getOneProduct } from "../../shared/api-calls/productsAPI";
 
 import "./ProductDetails.css"
 
-const ProductDetails = ({ cartAddingHandler, cartProducts }) => {
+const ProductDetails = ({ cartAddingHandler, cartProducts, cartProductsIds }) => {
     const params = useParams();
     const [product, setProduct] = useState(null);
     const history = useHistory();
@@ -59,11 +59,11 @@ const ProductDetails = ({ cartAddingHandler, cartProducts }) => {
                             <h3>{product.seller.name}</h3>
                         </div>
                         <div className="action">
-                            {cartProducts.find(cp => cp.id === product.id) ?
+                            {cartProductsIds ? cartProductsIds.includes(product.id) ?
                                 <label className="label label-success">Added</label>
                                 :
                                 <button type="button" onClick={() => cartAddingHandler(product)}>Add to cart</button>
-                            }
+                                : null}
                             <Link
                                 to={`/profile/${product.seller.id}`}
                                 className="btn btn-link">

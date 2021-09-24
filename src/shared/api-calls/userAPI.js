@@ -15,6 +15,6 @@ module.exports.unFollowUser = function (sellerId) {
 
 module.exports.getSeller = function (sellerId) {
   return axios
-    .get(`${BACKEND_SERVER}/users/${sellerId}`)
+    .get(`${BACKEND_SERVER}/users/${sellerId}`, { headers: { 'Access-Control-Allow-Origin': "*" } })
     .then((res) => res.data);
 };
