@@ -23,7 +23,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
 
   useEffect(() => {
@@ -57,7 +57,6 @@ function App() {
     console.log("product", product);
     addProduct(product)
       .then(data => {
-        console.log("new product", data);
         setProducts([...products, data])
         history.push("/products");
       }).catch(e => console.log(e))
