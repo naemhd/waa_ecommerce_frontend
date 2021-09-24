@@ -5,7 +5,6 @@ import { SELLER_ROLE } from "../../shared/globals";
 import "./Products.css"
 
 const Products = ({ products, setProducts, cartAddingHandler, cartProducts, currentUser }) => {
-
     useEffect(() => {
         if (currentUser.role === SELLER_ROLE) {
             getUserProducts().then((data) => {
