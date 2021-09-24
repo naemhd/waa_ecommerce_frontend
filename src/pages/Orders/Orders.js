@@ -14,15 +14,6 @@ const Orders = (props) => {
   const history = useHistory();
 
   const handleChangeStatus = (e) => {
-    // if (e.target.value === "Canceled") {
-    //   setStatus(0);
-    // } else if (e.target.value === "Accepted") {
-    //   setStatus(1);
-    // } else if (e.target.value === "Shipped") {
-    //   setStatus(2);
-    // } else if (e.target.value === "Deliverd") {
-    //   setStatus(3);
-    // }
     setStatus(e.target.value)
   };
 
